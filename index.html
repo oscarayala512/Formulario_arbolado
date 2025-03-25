@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <form action="/submit" method="POST" enctype="multipart/form-data">
     <title>Formulario de Solicitud de Servicios de Arbolado Urbano</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <style>
-       
-    </style>
     <script>
         function toggleSecciones() {
             var tipoSolicitud = document.getElementById('tipoSolicitud').value;
-            
-            // Ocultar todas las secciones
             document.getElementById('seccionPoda').style.display = 'none';
             document.getElementById('seccionDerribo').style.display = 'none';
             document.getElementById('seccionTrasplante').style.display = 'none';
 
-            // Mostrar la sección correspondiente según la selección
             if (tipoSolicitud === 'poda') {
                 document.getElementById('seccionPoda').style.display = 'block';
             } else if (tipoSolicitud === 'derribo') {
@@ -28,7 +21,6 @@
             }
         }
 
-        // Verificar que el nombre tenga al menos 3 caracteres
         function verificarLongitudNombre() {
             var nombre = document.getElementById('name').value;
             if (nombre.length < 3) {
@@ -40,20 +32,21 @@
 <body>
     <form action="procesar_formulario.php" method="POST" enctype="multipart/form-data">
 
-        <img src="https://github.com/oscarayala512/Formulario_arbolado/blob/main/img/logoixtapaluca.jpg?raw=true" alt="Logotipo" width="100%" height="150px"  >
+        <img src="https://github.com/oscarayala512/Formulario_arbolado/blob/main/img/logoixtapaluca.jpg?raw=true" alt="Logotipo" width="100%" height="150px">
+        
         <h2>Datos del Solicitante</h2>
         <div class="input-group">
             <label for="name">Nombre Completo:</label>
-            <input type="text" name="name" id="name" placeholder="Nombre completo" required onblur="verificarLongitudNombre()">
+            <input type="text" name="name" id="name" required onblur="verificarLongitudNombre()">
             
             <label for="phone">Número de Teléfono:</label>
-            <input type="tel" name="phone" id="phone" placeholder="Número de Teléfono" pattern="[0-9]{10}" required>
+            <input type="tel" name="phone" id="phone" pattern="[0-9]{10}" required>
 
             <label for="email">Correo Electrónico:</label>
-            <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
+            <input type="email" name="email" id="email" required>
 
-            <label for="address">Dirección de Contacto (opcional):</label>
-            <input type="text" name="address" id="address" placeholder="Dirección">
+            <label for="address">Dirección de Contacto:</label>
+            <input type="text" name="address" id="address">
         </div>
 
         <h2>Ubicación del Árbol</h2>
@@ -65,50 +58,45 @@
             <option value="privada">Propiedad privada</option>
         </select>
 
-        <div id="edificio-nombre" class="hidden">
-            <label for="nombreEdificio">Nombre del Edificio o Lugar:</label>
-            <input type="text" id="nombreEdificio" name="nombreEdificio">
-        </div>
-
         <label for="direccionArbol">Dirección Exacta:</label>
         <input type="text" id="direccionArbol" name="direccionArbol" required>
         
-        <label for="coordenadas">Coordenadas Geográficas (Opcional):</label>
+        <label for="coordenadas">Coordenadas Geográficas:</label>
         <input type="text" id="coordenadas" name="coordenadas" placeholder="Latitud, Longitud">
 
         <h2>Tipo de Solicitud</h2>
         <label for="tipoSolicitud">Seleccione el tipo de solicitud:</label>
         <select id="tipoSolicitud" name="tipoSolicitud" required onchange="toggleSecciones()">
             <option value="">Seleccione...</option>
-            <option value="poda">Poda (árboles de hasta 2.5 metros de altura)</option>
+            <option value="poda">Poda</option>
             <option value="derribo">Derribo</option>
             <option value="trasplante">Trasplante</option>
         </select>
 
         <!-- Sección de Poda -->
         <div id="seccionPoda" style="display: none;">
-            <h2>Características de la Poda</h2>
-            <label for="alturaAproximada">¿Cuál es la altura aproximada del árbol?</label>
-            <select id="alturaAproximada" name="alturaAproximada" required>
+            <h3>Características de la Poda</h3>
+            <label for="alturaAproximada">Altura aproximada:</label>
+            <select id="alturaAproximada" name="alturaAproximada">
                 <option value="">Seleccione...</option>
                 <option value="menor1">Menos de 1 metro</option>
                 <option value="1-2">Entre 1 y 2 metros</option>
                 <option value="2-2.5">Entre 2 y 2.5 metros</option>
             </select>
-            
-            <label>¿Qué tipo de poda solicita?</label>
-            <input type="checkbox" name="poda[]" value="formacion"> Poda de formación<br>
-            <input type="checkbox" name="poda[]" value="mantenimiento"> Poda de mantenimiento<br>
-            <input type="checkbox" name="poda[]" value="seguridad"> Poda de seguridad<br>
+
+            <label>Tipo de poda:</label>
+            <input type="checkbox" name="poda[]" value="formacion"> Formación<br>
+            <input type="checkbox" name="poda[]" value="mantenimiento"> Mantenimiento<br>
+            <input type="checkbox" name="poda[]" value="seguridad"> Seguridad<br>
         </div>
 
         <!-- Sección de Derribo -->
         <div id="seccionDerribo" style="display: none;">
-            <h2>Características del Derribo</h2>
-            <label for="razonDerribo">Razón del Derribo:</label>
-            <textarea id="razonDerribo" name="razonDerribo" placeholder="Razón por la cual se solicita el derribo" required></textarea>
-            
-            <label>¿El árbol presenta alguna de las siguientes características?</label>
+            <h3>Características del Derribo</h3>
+            <label for="razonDerribo">Razón del derribo:</label>
+            <textarea id="razonDerribo" name="razonDerribo"></textarea>
+
+            <label>¿Presenta alguna de estas características?</label>
             <input type="checkbox" name="caracteristicas[]" value="daño"> Daño estructural<br>
             <input type="checkbox" name="caracteristicas[]" value="caida"> Riesgo de caída<br>
             <input type="checkbox" name="caracteristicas[]" value="enfermedad"> Enfermedad grave<br>
@@ -116,9 +104,9 @@
 
         <!-- Sección de Trasplante -->
         <div id="seccionTrasplante" style="display: none;">
-            <h2>Características del Trasplante</h2>
-            <label for="razonTrasplante">Razón del Trasplante:</label>
-            <textarea id="razonTrasplante" name="razonTrasplante" placeholder="Razón por la cual se solicita el trasplante" required></textarea>
+            <h3>Características del Trasplante</h3>
+            <label for="razonTrasplante">Razón del trasplante:</label>
+            <textarea id="razonTrasplante" name="razonTrasplante"></textarea>
         </div>
 
         <h2>Evaluación de Riesgo</h2>
@@ -126,26 +114,22 @@
         <input type="radio" name="riesgo" value="si" required> Sí
         <input type="radio" name="riesgo" value="no" required> No
 
-        <label for="detalleRiesgo">Descripción detallada del riesgo (si respondió "Sí"):</label>
+        <label for="detalleRiesgo">Detalles del riesgo:</label>
         <textarea id="detalleRiesgo" name="detalleRiesgo"></textarea>
 
         <h2>Fotografías</h2>
-        <label>¿Dispone de fotografías o videos que evidencien el riesgo?</label>
+        <label>¿Dispone de fotografías o videos?</label>
         <input type="radio" name="fotos" value="si" required> Sí
-        <input type="radio" name="fotos" value="no">    No
-        
-        <label for="archivo">Cargue las fotografías o videos:</label>
-        <input type="file" id="archivo" name="archivo" multiple>
+        <input type="radio" name="fotos" value="no"> No
 
-        <h2>Declaración y Consentimiento</h2>
-        <input type="checkbox" name="declaracion" required> Declaro bajo protesta de decir verdad que la información es correcta.<br>
-        <input type="checkbox" name="autorizacion" required> Autorizo el ingreso a mi propiedad para evaluación y trabajos.<br>
+        <label for="archivo">Suba sus archivos:</label>
+        <input type="file" id="archivo" name="archivo[]" multiple>
 
-        <div>
-            <input class="btn" type="submit" value="Enviar">
-            <input type="hidden" name="_text" value="https://oscarayala512.github.io/Formulario-arbolado/">
-            <input type="hidden" name="_captcha" value="false">
-        </div>
+        <h2>Consentimiento</h2>
+        <input type="checkbox" name="declaracion" required> Declaro que los datos son correctos.<br>
+        <input type="checkbox" name="autorizacion" required> Autorizo el ingreso para evaluación.<br>
+
+        <br><input type="submit" value="Enviar" class="btn">
     </form>
 </body>
 </html>
