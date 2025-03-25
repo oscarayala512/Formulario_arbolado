@@ -4,9 +4,8 @@ body {
     background-position: center;
 
     background-image: url('https://raw.githubusercontent.com/oscarayala512/Formulario_arbolado/e57df8b11736d371859c5e096e3773b617aefdf2/img/arbol2.jpeg');
-background-size: 30%; /* Ajusta el tamaño de la imagen */
-background-position: right center; /* Coloca la imagen al costado derecho y centrada verticalmente */
-
+background-size: 30%; 
+background-position: right center; 
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -57,8 +56,8 @@ textarea {
 }
 
 .btn {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #670a0a;
+    color: rgb(230, 236, 231);
     border: none;
     padding: 10px;
     text-align: center;
@@ -70,7 +69,7 @@ textarea {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #691d0e;
 }
 
 .hidden {
