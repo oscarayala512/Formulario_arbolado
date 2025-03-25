@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";  // Cambia si es necesario
-$username = "root";         // Tu usuario de MySQL
-$password = "";             // Tu contraseña de MySQL
-$dbname = "arbolado_urbano";       // Nombre de tu base de datos
+$servername = "localhost";  
+$username = "root";        
+$password = "";             
+$dbname = "arbolado_urbano";      
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
