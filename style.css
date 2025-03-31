@@ -1,77 +1,156 @@
+/* Estilos generales */
 body {
-    background-image: url('https://raw.githubusercontent.com/oscarayala512/Formulario_arbolado/e57df8b11736d371859c5e096e3773b617aefdf2/img/arbol.jpeg');
-    background-size: cover;
-    background-position: center;
-
-    background-image: url('https://raw.githubusercontent.com/oscarayala512/Formulario_arbolado/e57df8b11736d371859c5e096e3773b617aefdf2/img/arbol2.jpeg');
-background-size: 30%; 
-background-position: right center; 
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #660000, #800000); /* Degradado de rojo oscuro */
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: #333;
+    position: relative;
 }
 
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+/* Fondo con imagen de árbol */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-image: url('https://raw.githubusercontent.com/oscarayala512/Formulario_arbolado/main/img/arbol2.jpeg'); 
+    background-size: 60%; /* Ajuste el tamaño del árbol para ser más grande */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    opacity: 0.5; /* Hacerlo más visible */
+    z-index: -1;
+}
+
+/* Contenedor del formulario */
+form {
+    background: rgba(255, 255, 255, 0.95); /* Fondo blanco con transparencia */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    max-width: 850px;
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(8px); /* Efecto de desenfoque elegante */
+}
+
+/* Encabezados */
+h2, h3 {
+    color: #800000; /* Color institucional */
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 h2 {
-    color: #333;
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 5px;
+    border-bottom: 3px solid #800000;
+    padding-bottom: 10px;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
+/* Etiquetas de los campos */
 label {
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    display: block;
 }
 
+/* Campos de entrada */
 input, select, textarea {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px;
+    margin-top: 8px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
     box-sizing: border-box;
-}
-
-textarea {
-    resize: vertical;
-    min-height: 50px;
-}
-
-.btn {
-    background-color: #670a0a;
-    color: rgb(230, 236, 231);
-    border: none;
-    padding: 10px;
-    text-align: center;
     font-size: 16px;
-    border-radius: 5px;
+    background-color: #fdfdfd;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto al enfocar los inputs */
+input:focus, select:focus, textarea:focus {
+    border-color: #800000;
+    outline: none;
+    box-shadow: 0 0 10px rgba(128, 0, 0, 0.6);
+}
+
+/* Botón de envío */
+.btn {
+    background-color: #800000;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
     width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn:hover {
-    background-color: #691d0e;
+    background-color: #660000;
+    transform: scale(1.05);
 }
 
-.hidden {
-    display: none;
+.btn:active {
+    background-color: #3c0000;
+    transform: scale(0.98);
+}
+
+/* Estilos del mapa */
+#map {
+    height: 350px;
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajustes para los checkboxes y radios */
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* Secciones de tipo de solicitud */
+#seccionPoda, #seccionDerribo, #seccionTrasplante {
+    margin-top: 20px;
+}
+
+/* Mejorar visibilidad de selects */
+select {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        background-size: cover; /* Ajustar para dispositivos móviles */
+    }
+
+    form {
+        width: 95%;
+        padding: 20px;
+    }
+
+    body::before {
+        background-size: 60%; /* Ajustar tamaño del árbol en pantallas pequeñas */
+    }
 }
