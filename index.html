@@ -85,58 +85,72 @@
         <input type="text" id="direccionArbol" name="direccionArbol" required>
         
         
-<h3>Seleccione la ubicación en el mapa:</h3>
-<div id="map" style="height: 200px; width: 100%; border: 1px solid #ae5c5c;"></div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Inicialización del mapa
-        var map = L.map('map').setView([19.43, -99.13], 13); // Coordenadas iniciales CDMX
-
-        // Cargar el mapa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var marker;
-
-        // Inicializar el geocodificador de Leaflet
-        var geocoder = L.Control.Geocoder.nominatim();
-
-        // Función que se ejecuta cuando el usuario escribe la dirección
-        function geocodeDireccion(direccion) {
-            geocoder.geocode(direccion, function(results) {
-                if (results.length > 0) {
-                    var latlng = results[0].center; // Coordenadas de la dirección
-                    if (marker) {
-                        marker.setLatLng(latlng); // Actualizar la posición del marcador
-                    } else {
-                        marker = L.marker(latlng).addTo(map); // Añadir un nuevo marcador
-                    }
-                    map.setView(latlng, 13); // Centrar el mapa en la nueva ubicación
-                } else {
-                    alert("No se pudo encontrar la dirección.");
+        <h3>Seleccione la ubicación en el mapa:</h3>
+        <div id="map" style="height: 200px; width: 100%; border: 1px solid #ae5c5c;"></div>
+        
+        <!-- NUEVOS CAMPOS OCULTOS PARA GUARDAR COORDENADAS -->
+        <input type="hidden" name="latitud" id="latitud">
+        <input type="hidden" name="longitud" id="longitud">
+        
+        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var map = L.map('map').setView([19.43, -99.13], 13);
+                var marker;
+        
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+        
+                // Geocoder de Leaflet
+                var geocoder = L.Control.Geocoder.nominatim();
+        
+                // Actualiza los campos ocultos
+                function actualizarCoordenadas(latlng) {
+                    document.getElementById('latitud').value = latlng.lat;
+                    document.getElementById('longitud').value = latlng.lng;
                 }
+        
+                // Buscar coordenadas desde dirección
+                function geocodeDireccion(direccion) {
+                    geocoder.geocode(direccion, function(results) {
+                        if (results.length > 0) {
+                            var latlng = results[0].center;
+                            if (marker) {
+                                marker.setLatLng(latlng);
+                            } else {
+                                marker = L.marker(latlng).addTo(map);
+                            }
+                            map.setView(latlng, 13);
+                            actualizarCoordenadas(latlng);
+                        } else {
+                            alert("No se pudo encontrar la dirección.");
+                        }
+                    });
+                }
+        
+                // Geocodificar cuando se escribe dirección
+                document.getElementById('direccionArbol').addEventListener('blur', function() {
+                    var direccion = this.value;
+                    if (direccion) {
+                        geocodeDireccion(direccion);
+                    }
+                });
+        
+                // Al hacer clic en el mapa
+                map.on('click', function (e) {
+                    if (marker) {
+                        marker.setLatLng(e.latlng);
+                    } else {
+                        marker = L.marker(e.latlng).addTo(map);
+                    }
+                    actualizarCoordenadas(e.latlng);
+                });
             });
-        }
-
-        // Evento cuando el usuario deja de escribir en el campo de la dirección
-        document.getElementById('direccionArbol').addEventListener('blur', function() {
-            var direccion = this.value;
-            if (direccion) {
-                geocodeDireccion(direccion); // Llamar a la función de geocodificación
-            }
-        });
-
-        // Opción para marcar la ubicación directamente en el mapa
-        map.on('click', function (e) {
-            if (marker) {
-                marker.setLatLng(e.latlng);
-            } else {
-                marker = L.marker(e.latlng).addTo(map);
-            }
-        });
-    });
-</script>
+        </script>
+        
 
 <h2>Tipo de Solicitud</h2>
         <label for="tipoSolicitud">Seleccione el tipo de solicitud:</label>
@@ -260,5 +274,4 @@
     </form>
 </body>
 </html>
-
 
